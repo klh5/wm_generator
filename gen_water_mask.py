@@ -64,7 +64,7 @@ def getNDWI(ds):
     
     wm = xr.where(avg >= -0.3, 1, 0)
     
-    avg = avg.fillna(255)
+    wm = wm.fillna(255)
         
     wm = wm.astype('uint8')
         
