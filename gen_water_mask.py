@@ -79,10 +79,12 @@ def outputToFile(output):
     outfile = '{}.kea'.format(site)
     
     # Output to KEA file
-    x_size = (xmin = xmax) / 30
-    y_size = (ymin - ymax) / 30
+    x_size = len(output.x.values)
+    y_size = len(output.y.values)
+    x_min = np.amin(output.x.values)
+    y_max = np.amax(output.y.values)
     
-    geo_transform = (xmin, 30, 0.0, ymax, 0.0, -30)
+    geo_transform = (x_min, 30, 0.0, y_max, 0.0, -30)
     
     driver = gdal.GetDriverByName('KEA')
     output_raster = driver.Create(outfile, x_size, y_size, 1, 1) # Only one band, byte data type since there are only 2 values
@@ -105,7 +107,6 @@ ds = getDataset(crs, xmin, xmax, ymin, ymax)
 wm = getNDWI(ds)
 
 outputToFile(wm)
-
 
 
 
